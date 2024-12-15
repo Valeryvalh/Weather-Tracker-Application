@@ -86,7 +86,5 @@ class Options(Weather_data):
 def main():
         weather = Options()
         weather.add_data()
-        weather.display_data()
-        weather.find_hottest_day()
-        weather.find_coldest_day()
+        weather.search_by_date()
 main()        
