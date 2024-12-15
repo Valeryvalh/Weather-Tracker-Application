@@ -7,10 +7,23 @@ class Weather_data:
         self.temperature = temperature
         self.humidity = humidity
         self.conditions = conditions
-         
+
+
+    def to_json(self):
+        return {
+            "date": self.date,
+            "temperature": self.temperature,
+            "humidity": self.humidity,
+            "conditions": self.conditions
+        }
+
+
+
+
 class Options(Weather_data):
     def __init__(self):
         self.data = []
+
 
     def add_data(self):
         
@@ -20,8 +33,19 @@ class Options(Weather_data):
         conditions = input("Enter the conditions either it is rainy or sunny \n ")
         weatherday = Weather_data(date, temperature, humidity, conditions)
         self.data.append(weatherday)
-      
-
+       
+        
+        
+       
+   
+    def load_data(self):
+        try:
+            with open("file_save.json", "r") as f:
+                self.data = json.load(f)
+                print(self.data)
+        except FileNotFoundError:
+            # File doesn't exist, data is empty
+            pass
         
 
 
@@ -42,7 +66,7 @@ class Options(Weather_data):
                 print(f"Date: {date.date}\n")
                 print(f"Temperature: {date.temperature}°C\n")
                 print(f"Humidity: {date.humidity}%\n")
-                print(f"Condition: {date.condition}\n")
+                print(f"Condition: {date.conditions}\n")
             else:
                 print("No data found for the specified date.\n")
             print('--------------------------')   
@@ -85,8 +109,8 @@ class Options(Weather_data):
 
 def main():
         weather = Options()
-        weather.add_data()
-        weather.display_data()
-        weather.find_hottest_day()
-        weather.find_coldest_day()
+        weather.load_data()
+       
+       
+      
 main()        
